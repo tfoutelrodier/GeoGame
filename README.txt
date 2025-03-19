@@ -5,6 +5,9 @@ Principe du jeu:
 - Un score est attribué en fonction de la distance entre le clic et l'emplacement réel de la ville (le plus proche est le mieux)
 - Une partie se joue en 10 round
 
+![alt text](data/GeoGame_screenshot.png)
+
+
 Installation:
 ```
 git clone https://github.com/tfoutelrodier/GeoGame
@@ -25,5 +28,5 @@ Elles sont trouvable sur https://www.data.gouv.fr/fr/datasets/villes-de-france/#
 - Les données sources des NUPS et les fichiers intermédiaires ayant permis de générer le fichier cities_data.csv ne sont pas stockés mais le code est présent pour les regénérer.
 - Le calcul du score en fonction de la distance est le même que pour le jeu geoguesser, adapté pour la France métropolitaine.
 
-Le jeu est actuellement dans un état jouable qui me suffit pour apprendre mais il manque encore clairement de finition sur ces aspects graphiques et sur la couverture de test. 
+Le jeu est actuellement dans un état jouable qui me suffit pour apprendre mais il manque encore clairement de finition sur ces aspects graphiques et sur l'organisation des fichiers. 
 Je prévois de revenir dessus lorsque j'implémenterai un système de mode de jeu pour choisir le set de villes avec lequel jouer.
