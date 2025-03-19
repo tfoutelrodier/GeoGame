@@ -5,7 +5,7 @@ Principe du jeu:
 - Un score est attribué en fonction de la distance entre le clic et l'emplacement réel de la ville (le plus proche est le mieux)
 - Une partie se joue en 10 round
 
-![alt text](data/GeoGame_screenshot.png)
+![GeoGame Screenshot](data/GeoGame_screenshot.png)
 
 
 Installation:
