@@ -1,4 +1,4 @@
-### GeoGame
+# GeoGame
 
 ## Principe du jeu:
 - Le but du jeu est de placer correctement les villes demandées sur la carte en cliquant sur leur emplacement.
