@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 All functions regarding the selections of the target city to locate
-Functions relevant to GUI changes during difficulty selection (drop down menu ?) will be elsewhere
+Functions relevant to GUI changes during difficulty selection (drop down menu ?) will be elsewhere.
 """
 
 '''
