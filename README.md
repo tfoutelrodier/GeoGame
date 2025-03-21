@@ -9,8 +9,14 @@
 
 
 ## Installation
+Warning : The game felt slow when ran on a venv from windows subsystem for linux (WSL) when testing. 
+
+It wasn't the case when directly played in windows without WSL however
+
 ```
 git clone https://github.com/tfoutelrodier/GeoGame
+# activate venv here if want to run the game in one
+pip install GeoGame/requirements.txt
 python GeoGame/main.py 
 ```
 
