@@ -8,7 +8,7 @@ from config import config_dict, print_color_dict
 from helper import print_color
     
 
-def test_Location_pixel2gps_ifPixelInput():
+def test_Location_pixel2gps_ifPixelInput() -> None:
     # create a dict with all expected corners values in gps data from the config file
     geo_map = GeoMap()
     expected_value_dict = {
@@ -45,8 +45,7 @@ def test_Location_pixel2gps_ifPixelInput():
         print_color("Location_pixel2gps_ifPixelInput: FAIL", color = "red")
 
 
-def test_Location_pixel2gps_ifGPSInput():
-    expected_value = None
+def test_Location_pixel2gps_ifGPSInput() -> None:
     geo_map = GeoMap()
     test_pos = (0,0)
     test_loc = Location(loc=test_pos, geo_map=geo_map, coord_type="gps")
@@ -57,7 +56,7 @@ def test_Location_pixel2gps_ifGPSInput():
         print_color("Location_pixel2gps_ifGPSInput: FAIL", color = "red")
 
 
-def test_Location_gps2pixel_ifGPSInput():
+def test_Location_gps2pixel_ifGPSInput() -> None:
     geo_map = GeoMap()
     # create a dict with all expected corners values in gps data from the config file
     expected_value_dict = {
@@ -92,8 +91,7 @@ def test_Location_gps2pixel_ifGPSInput():
         print_color("Location_gps2pixel_ifGPSInput: FAIL", color = "red")
 
 
-def test_Location_gps2pixel_ifPixelInput():
-    expected_value = None
+def test_Location_gps2pixel_ifPixelInput() -> None:
     geo_map = GeoMap()
     test_pos = (0,0)
     test_loc = Location(loc=test_pos, geo_map=geo_map, coord_type="pixel")
@@ -104,7 +102,7 @@ def test_Location_gps2pixel_ifPixelInput():
         print_color("Location_gps2pixel_ifPixelInput: FAIL", color = "red")
 
 
-def run_tests():
+def run_tests() -> None:
     '''
     run all tests
     '''

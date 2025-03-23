@@ -43,7 +43,7 @@ import json
 from helper import csv2dict
 
 
-def load_nb2name_dict():
+def load_nb2name_dict() -> dict[str:str]:
     # Import name/department table
     nb2name_dict = csv2dict(os.path.join('raw_data/dpt_numer2_name_table.csv'),
                              separator = ";",
@@ -51,7 +51,7 @@ def load_nb2name_dict():
     return(nb2name_dict)
 
 
-def load_loc_data():
+def load_loc_data() -> pd.DataFrame:
     # Import localization data
     with open(os.path.join('raw_data/cities_location.json'), 'r') as f:
         loc_dict = json.load(f, encoding = 'latin1')
@@ -59,7 +59,7 @@ def load_loc_data():
     return(loc_df)
 
 
-def clean_loc_data(loc_df):
+def clean_loc_data(loc_df: pd.DataFrame) -> pd.DataFrame:
     '''
     Only keep town in metropolitan area
     '''
@@ -77,7 +77,7 @@ def clean_loc_data(loc_df):
     return(loc_df)
 
 
-def load_population_data():
+def load_population_data() -> pd.DataFrame:
     # Import population data
     df_lst = []
     for dpt_number in nb2name_dict:
@@ -93,7 +93,7 @@ def load_population_data():
     return(population_df)
 
 
-def clean_population_data(population_df):
+def clean_population_data(population_df: pd.DataFrame) -> pd.DataFrame:
     # remove duplicates
     # create a column to clean city name before merge with location data
     # returns cleaned dataset
@@ -132,7 +132,8 @@ def clean_population_data(population_df):
     return(population_df)
 
 
-def extract_big_city_pop_data(city, discarded_pop_df):
+def extract_big_city_pop_data(city: str, discarded_pop_df: pd.DataFrame) -> pd.Series:
+    # Sum population data for cities with 'arrondissement'
     # city = city name (str)
     city_lower = city.lower()
     regex = r''.join([city_lower, '\s[0-9]+(?:e|er)\sarrondissement'])
@@ -145,7 +146,8 @@ def extract_big_city_pop_data(city, discarded_pop_df):
     return(city_data)
 
 
-def extract_big_city_loc_data(city, discarded_loc_df):
+def extract_big_city_loc_data(city:str, discarded_loc_df:pd.DataFrame) -> pd.Series:
+    # Extract location (GPS) data for wities with 'arrondissement'
     # city = city name (str)
     city_lower = city.lower()
     regex = r''.join([city_lower, '\s[0-9]+'])
@@ -156,10 +158,10 @@ def extract_big_city_loc_data(city, discarded_loc_df):
     return(city_data)
 
 
-def extract_big_city_data(city, merge_df, population_df, location_df):
+def extract_big_city_data(city:str, merge_df: pd.DataFrame, population_df: pd.DataFrame, location_df:pd.DataFrame) -> pd.Series:
     # Returns a pandas series with the proper data for cities with arrondissements
     
-    discarded_loc_df = loc_df[ ~loc_df['city_code'].isin(merge_df['city_code'])]
+    discarded_loc_df = location_df[ ~location_df['city_code'].isin(merge_df['city_code'])]
     discarded_pop_df = population_df[ ~population_df['cleaned_name'].isin(merge_df['cleaned_name'])]
     
     #rename and drop colums to match the merge df

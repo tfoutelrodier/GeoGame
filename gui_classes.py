@@ -20,7 +20,15 @@ class Location():
     If input is pixels, then they are window pixel
     Can be named and display marker and name
     '''
-    def __init__(self, marker_surface=None, loc=(0,0), coord_type='pixel', map_lim='auto', geo_map=None):
+    def __init__(
+            self,
+            marker_surface:pygame.Surface=None,
+            loc:tuple[int|float, int|float]=(0,0),
+            coord_type:str='pixel',
+            map_lim:str='auto',
+            geo_map:'GeoMap'=None
+                ) -> None:
+        
         if geo_map is not None:
             self.map_width = geo_map.width
             self.map_height = geo_map.height
@@ -73,7 +81,7 @@ class Location():
         self.to_map = Transformer.from_crs(self.proj_gps, self.proj_map, always_xy=True)
         
         
-    def pixel2gps(self):
+    def pixel2gps(self) -> None:
         '''
         Convert coordinates from pixels (EPSG:3857 coordinates) to GPS (WGS84 coordinates)
         '''
@@ -98,7 +106,7 @@ class Location():
         self.coord_type = 'gps'
     
     
-    def gps2pixel(self):
+    def gps2pixel(self) -> None:
         '''
         Convert GPS coordinates to (EPSG:3857 coordinates) then to pixel
         '''
@@ -126,7 +134,7 @@ class Location():
             self.y_pixel = self.y + self.map_topleft_y
         
         
-    def calculate_distance(self, target_pos):
+    def calculate_distance(self, target_pos:tuple[int|float, int|float]) -> int|float:
         '''
         Calculate the distance in km between two gps coordinates
         '''
@@ -182,12 +190,14 @@ class GeoMap():
     '''
     Store the map and its relative data
     '''
-    def __init__(self, 
-                 map_width=config_dict['MAP_WIDTH'],
-                 map_height=config_dict['MAP_HEIGHT'],
-                 map_file=config_dict['map_file'],
-                 window_width=config_dict['WINDOW_WIDTH'],
-                 window_height=config_dict['WINDOW_HEIGHT']):
+    def __init__(
+            self, 
+            map_width: int=config_dict['MAP_WIDTH'],
+            map_height: int=config_dict['MAP_HEIGHT'],
+            map_file: str=config_dict['map_file'],
+            window_width:int =config_dict['WINDOW_WIDTH'],
+            window_height:int =config_dict['WINDOW_HEIGHT']
+                ) -> None:
 
         self.width = map_width
         self.height = map_height
@@ -202,7 +212,7 @@ class GeoMap():
         self.topleft_y = window_height - self.height
     
     
-    def display(self, window, pos='auto'):
+    def display(self, window: pygame.Surface, pos: str='auto') -> None:
         '''
         Blit the image on window
         '''
@@ -216,7 +226,14 @@ class TopBand():
     Create a band at the top of the display
     Used to print score, objective and other info
     '''
-    def __init__(self, x=0, y=0, width=config_dict['WINDOW_WIDTH'], height=50, color_dict=color_dict):
+    def __init__(
+            self,
+            x: int|float=0,
+            y: int|float=0,
+            width: int=config_dict['WINDOW_WIDTH'],
+            height: int=50,
+            color_dict: dict[str:tuple[int, int, int]]=color_dict
+                ) -> None:
         
         grey = color_dict['grey']
         black = color_dict['black']
@@ -227,8 +244,9 @@ class TopBand():
         self.image.fill(grey)
         
         self.rect = self.image.get_rect()
-    
-    def display(self, window, pos='auto'):
+
+
+    def display(self, window: pygame.Surface, pos: str='auto') -> None:
         '''
         Blit the image on window
         '''
@@ -241,14 +259,16 @@ class Text():
     '''
     Holds information for text to display
     '''
-    def __init__(self,
-                 text="Lorem Ipsum",
-                 x=0,
-                 y=0,
-                 anchor='topleft',
-                 fontName='freesansbold.ttf',
-                 fontSize=35,
-                 color=(0,0,0)):
+    def __init__(
+            self,
+            text: str="Lorem Ipsum",
+            x: int|float=0,
+            y: int|float=0,
+            anchor: str='topleft',
+            fontName: str='freesansbold.ttf',
+            fontSize: int=35,
+            color: tuple[int, int , int]=(0,0,0)
+                 ) -> None:
         
         # Import data
         self.text = str(text)  # text to display
@@ -266,8 +286,9 @@ class Text():
         self.rect = self.surface.get_rect()
         # Position the text
         setattr(self.rect, self.anchor, (self.x, self.y))
+
     
-    def rotate(self, angle):
+    def rotate(self, angle: int|float) -> None:
         '''
         angle is int in degree
         positive is counter clockwise and negative clockwise
@@ -275,7 +296,8 @@ class Text():
         self.surface = pygame.transform.rotate(self.surface, angle) 
         self.rect = self.surface.get_rect()    
     
-    def move(self, x,y, anchor=None):
+
+    def move(self, x: int|float, y: int|float, anchor: str|None=None) -> None:
         '''
         Position the text at the given location
         '''
@@ -285,7 +307,8 @@ class Text():
             self.anchor = anchor
         setattr(self.rect, self.anchor, (self.x, self.y))
 
-    def update(self):
+
+    def update(self) -> None:
         '''
         Update surface if text was changed
         '''
@@ -296,7 +319,8 @@ class Text():
         # Position the text
         setattr(self.rect, self.anchor, (self.x, self.y))
 
-    def display(self, window):
+
+    def display(self, window: pygame.Surface) -> None:
         # Display
         window.blit(self.surface, self.rect)
 
@@ -305,7 +329,15 @@ class FakeWindow():
     '''
     Create a simily window but is just a rectangle
     '''
-    def __init__(self,x=0, y=0, width=10, height=10, color=(190,190,190), anchor='topleft'):
+    def __init__(
+            self,x: int=0,
+            y: int=0,
+            width: int=10,
+            height: int=10,
+            color: tuple[int, int, int]=(190,190,190),
+            anchor: str='topleft'
+            ) -> None:
+        
         self.x = x
         self.y = y
         self.width = width
@@ -322,25 +354,27 @@ class FakeWindow():
         setattr(self.rect, self.anchor, (self.x, self.y))
     
     
-    def display(self, window):
+    def display(self, window: pygame.Surface) -> None:
         window.blit(self.surface, self.rect)
     
 
 class Button():
     
-    def __init__(self,
-                 text='Lorem Ipsum',
-                 x=0,
-                 y=0,
-                 width=10,
-                 height=10,
-                 command=None,
-                 font='freesansbold.ttf',
-                 font_size=15,
-                 color_normal=(169,169,169),
-                 color_hovered=(100,100,100),
-                 anchor='topleft',
-                 parent='window'):
+    def __init__(
+            self,
+            text: str='Lorem Ipsum',
+            x: int|float=0,
+            y: int|float=0,
+            width: int|float=10,
+            height: int|float=10,
+            command: None=None,  # Not implemented yet
+            font: str='freesansbold.ttf',
+            font_size: int=15,
+            color_normal: tuple[int, int , int]=(169,169,169),
+            color_hovered: tuple[int, int , int]=(100,100,100),
+            anchor: str='topleft',
+            parent: str='window'
+                 ) -> None:
         
         self.text = text
         self.x = x
@@ -385,7 +419,7 @@ class Button():
         self.clicked = False
 
 
-    def update(self):
+    def update(self) -> None:
 
         if self.hovered:
             self.surface = self.surface_hovered
@@ -393,7 +427,7 @@ class Button():
             self.surface = self.surface_normal
     
         
-    def handle_event(self, event):
+    def handle_event(self, event: pygame.event.Event) -> None:
 
         if event.type == pygame.MOUSEMOTION:
             self.hovered = self.rect.collidepoint(event.pos)
@@ -401,13 +435,24 @@ class Button():
         elif event.type == pygame.MOUSEBUTTONUP:
             if self.hovered:
                 self.clicked = True
-                    
-    def display(self, window):
+
+
+    def display(self, window: pygame.Surface) -> None:
         window.blit(self.surface, self.rect)
 
 
 class Line():
-    def __init__(self, window, marker_A, marker_B, score=1000, distance=0, color=(0,0,0), width=2, offset=10):
+    def __init__(
+            self,
+            window: pygame.Surface,
+            marker_A: 'Location',
+            marker_B: 'Location',
+            score: int=1000,
+            distance: int|float=0,
+            color: tuple[int, int, int]=(0,0,0),
+            width: int=2,
+            offset: int=10
+                ) -> None:
         
         '''
         window is the display surface
@@ -477,8 +522,9 @@ class Line():
         self.marker_A = marker_A
         self.marker_B = marker_B
         self.window_height = window.get_height()
-        
-    def find_score_distance_positions(self):
+
+
+    def find_score_distance_positions(self) -> None:
         
         # Find if markers are too close to print along the line
         if self.score > 700 or self.distance < 100:
@@ -517,7 +563,7 @@ class Line():
                 self.distance_text.anchor = 'midtop'
                 self.distance_text.update() 
             
-            return()
+            return None
         
         # General case : plot at angle
                 

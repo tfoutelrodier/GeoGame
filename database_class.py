@@ -3,9 +3,10 @@
 Helper classes
 """
 from helper import load_database
+import pandas as pd
 
 class Database:
-    def __init__(self):
+    def __init__(self) -> None:
         # set game mode parameters
         
         # Maybe get to top 3 or 5 cities for each department
@@ -22,7 +23,7 @@ class Database:
         self.database = grouped_db.head(self.top_city_to_keep)
         
         
-    def get_city_data(self):
+    def get_city_data(self) -> pd.DataFrame:
         '''
         return a random city data 
         '''
@@ -32,7 +33,7 @@ class Database:
         return(sample_df)
     
     
-    def get_paris_data(self):
+    def get_paris_data(self) -> pd.DataFrame:
         '''
         test function that always return paris data if possible
         '''

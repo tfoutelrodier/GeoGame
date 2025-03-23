@@ -34,7 +34,7 @@ config_dict = {
     'max_game_number' : 10
     }
 
-# Dict with preset colord
+# Dict with preset colors
 color_dict = {
     'black' : (0,0,0),
     'white' : (255,255,255),

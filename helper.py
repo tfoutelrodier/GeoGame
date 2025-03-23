@@ -13,7 +13,7 @@ import numpy as np
 # for font work before pygame.init()
 pygame.font.init()
 
-def csv2dict(csv_file, separator = ",", header = False):
+def csv2dict(csv_file:str, separator: str = ",", header: bool = False) -> dict[str:str]:
     '''
     csv_file : str of path
     separator : str
@@ -33,7 +33,7 @@ def csv2dict(csv_file, separator = ",", header = False):
     return(data_dict)
 
 
-def load_database():
+def load_database() -> pd.DataFrame:
     '''
     return city data in a dataframe
     '''
@@ -41,7 +41,7 @@ def load_database():
     return(df)
 
 
-def haversine(lon1, lat1, lon2, lat2):
+def haversine(lon1: int|float, lat1: int|float, lon2: int|float, lat2: int|float) -> int:
     '''
     Calculated distance in km between two points in GPS (WSG84) Coordinates
     '''
@@ -65,7 +65,7 @@ def haversine(lon1, lat1, lon2, lat2):
     return distance
 
 
-def print_color(txt, color='red'):
+def print_color(txt: str, color:str='red') -> None:
     '''
     Display message in color
     if wrong color, print a warning
@@ -80,7 +80,7 @@ def print_color(txt, color='red'):
         print(txt)
 
 
-def render_text(topleft_x, topleft_y, text, font_name, font_size, color):
+def render_text(topleft_x:int, topleft_y:int, text:int, font_name:str, font_size:int, color:str) -> tuple[pygame.Surface, pygame.Rect]:
     '''
     Display some text
     Pass argument as a dict with following keys:
@@ -102,7 +102,7 @@ def render_text(topleft_x, topleft_y, text, font_name, font_size, color):
     return(text_surface, text_rect)
 
 
-def calculate_score(distance, config_dict):
+def calculate_score(distance:int, config_dict:dict) -> int:
     '''
     Return a score based on distance in km to target
     Score is defined by a A*exp(B*x) equation
